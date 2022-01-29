@@ -9,26 +9,26 @@ import UIKit
 import SafariServices
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-  
-    
+
+
     private let tableView: UITableView = {
-       let table = UITableView()
+        let table = UITableView()
         table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         return table
     }()
-    
+
     private var viewModels = [NewTableViewCellViewModel]()
     private var articles = [Article]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      title = "RussianNews"
+        title = "RussianNews"
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .lightGray
-        
-        APICaller.shared.getTopStories {[weak self] result in
+
+        APICaller.shared.getTopStories { [weak self] result in
             switch result {
             case .success(let articles):
                 self?.articles = articles
@@ -42,10 +42,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             case .failure(let error):
                 print(error)
             }
-            
+
         }
-       
-        
+
+
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -53,16 +53,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
 // tabel
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as? NewsTableViewCell else {
             fatalError()
         }
-        
+
         cell.configure(with: viewModels[indexPath.row])
         return cell
     }
@@ -72,7 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let url = URL(string: article.url ?? "") else {
             return
         }
-        
+
         let vc = SFSafariViewController(url: url)
         present(vc, animated: true)
     }
