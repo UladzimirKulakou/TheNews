@@ -32,7 +32,7 @@ class NewsTableViewCell: UITableViewCell {
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 22, weight: .medium)
+        label.font = .systemFont(ofSize: 22, weight: .semibold)
         return label
     
     }()
@@ -46,6 +46,8 @@ class NewsTableViewCell: UITableViewCell {
     
     private let newsImageVeiw: UIImageView = {
        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 6
+        imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
         imageView.backgroundColor = .systemBlue
         imageView.contentMode = .scaleAspectFill
@@ -74,7 +76,7 @@ class NewsTableViewCell: UITableViewCell {
                                       height: contentView.frame.size.height/2)
         newsImageVeiw.frame = CGRect(x: contentView.frame.width - 160,
                                       y: 5,
-                                      width: 160,
+                                      width: 140,
                                       height: contentView.frame.size.height - 10)
     }
     
